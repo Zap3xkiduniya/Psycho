@@ -2,220 +2,156 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Taiyab ❤️ Alfisha</title>
+<title> ❤️ Alfisha ❤️</title>
 
 <style>
 body{
-margin:0;height:100vh;display:flex;justify-content:center;align-items:center;
-background:linear-gradient(135deg,#ff5f9e,#ffc371);
-font-family:Arial;overflow:hidden;
-}
-
-#lock{
-position:fixed;inset:0;background:black;color:white;
-display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9;
+margin:0;
+height:100vh;
+background:black;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+color:white;
 }
 
 .card{
-background:white;padding:20px;border-radius:25px;text-align:center;
-box-shadow:0 0 20px rgba(0,0,0,.2);max-width:340px;
+background:rgba(255,255,255,.06);
+padding:25px;
+border-radius:25px;
+text-align:center;
+width:340px;
+box-shadow:0 0 25px #ff0080;
 }
 
-img{width:90px;margin:5px;border-radius:15px;cursor:pointer;}
-
-.glow{
-border:3px solid pink;
-box-shadow:0 0 25px hotpink;
+.neon{
+font-size:32px;
+color:#ff0080;
+text-shadow:0 0 10px #ff0080,0 0 35px #ff4da6;
 }
 
-h2{
-animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{text-shadow:0 0 5px pink}
-to{text-shadow:0 0 20px hotpink}
+#text{
+white-space:pre-line;
+font-size:13px;
+min-height:260px;
 }
 
 button{
-padding:10px 20px;border:none;border-radius:20px;background:#ff3b7d;
-color:white;cursor:pointer;margin:5px;
+padding:10px 25px;
+border:none;
+border-radius:20px;
+background:#ff0080;
+color:white;
+margin-top:15px;
 }
 
-.heart,.kiss{
-position:fixed;font-size:20px;animation:fall 4s linear infinite;
+/* hearts */
+.heart{
+position:absolute;
+animation:float 5s linear infinite;
 }
 
-@keyframes fall{0%{top:-10%}100%{top:110%}}
-
-#slider img{width:100%;display:none}
-
-#zoom{
-position:fixed;inset:0;background:rgba(0,0,0,.8);
-display:none;justify-content:center;align-items:center;
+@keyframes float{
+0%{bottom:0;opacity:1}
+100%{bottom:100%;opacity:0}
 }
 
-#zoom img{width:80%}
-
-#letter,#end{display:none}
-
-#ring{
-display:none;font-size:50px;animation:ring 1s infinite;
+/* fireworks */
+.boom{
+position:absolute;
+width:6px;height:6px;
+border-radius:50%;
+background:white;
+animation:boom 1s linear forwards;
 }
 
-@keyframes ring{
-0%{transform:scale(1)}
-50%{transform:scale(1.4)}
-100%{transform:scale(1)}
+@keyframes boom{
+to{
+transform:translate(var(--x),var(--y));
+opacity:0;
 }
-
+}
 </style>
 </head>
 
 <body>
 
-<div id="lock">
-<h2>Password Enter Karo 💕</h2>
-<input id="pass">
-<br><br>
-<button onclick="unlock()">Open</button>
-</div>
-
-<audio autoplay loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
-
-<audio id="hug">
-<source src="https://www.fesliyanstudios.com/play-mp3/4385">
-</audio>
-
-<div class="card" id="main">
-
-<h2>Taiyab ❤️ Alfisha</h2>
-
-<img src="images/boy1.jpg" onclick="zoomPic(this)">
-<img src="images/girl1.jpg" class="glow" onclick="zoomPic(this)">
-
-<p id="typing"></p>
-
-<div id="slider">
-<img src="images/boy1.jpg" onclick="zoomPic(this)">
-<img src="images/boy2.jpg" onclick="zoomPic(this)">
-<img src="images/boy3.jpg" onclick="zoomPic(this)">
-<img src="images/girl1.jpg" onclick="zoomPic(this)">
-<img src="images/girl2.jpg" onclick="zoomPic(this)">
-</div>
-
-<button onclick="surprise()">Surprise 💝</button>
-<button onclick="openLetter()">Next ➡️</button>
-
-</div>
-
-<div class="card" id="letter">
-
-<h2>My Alfisha ❤️</h2>
-
-<p style="font-size:14px;line-height:1.5">
-
-Alfisha…  
-tum meri zindagi ka sabse khoobsurat hissa ho 🥺  
-
-jab bhi tumhari yaad aati hai,  
-dil automatically muskura deta hai 💕  
-
-main wada karta hoon —  
-chahe kuch bhi ho jaye,  
-tumhara haath kabhi nahi chhodunga…  
-
-tum meri aadat ho, meri dua ho, meri jaan ho ❤️  
-
-agar kabhi galti ho jaaye to maaf kar dena,  
-par kabhi door mat jana…  
-
-I Love You Alfisha  
-Forever ♾️❤️
-
-</p>
-
-<div id="ring">💍</div>
-
-<button onclick="proposal()">Forever 💞</button>
-
-</div>
-
-<div class="card" id="end">
-
-<h2>Thank You For Being Mine ❤️</h2>
-<p>Tum meri duniya ho Alfisha 😘</p>
-
-</div>
-
-<div id="zoom" onclick="this.style.display='none'">
-<img id="zimg">
+<div class="card">
+<h2 class="neon">Alfisha ❤️</h2>
+<div id="text"></div>
+<p>Will you forgive me? 🥺</p>
+<button onclick="yes()">Yes</button>
 </div>
 
 <script>
 
-function unlock(){
-if(pass.value=="love")lock.style.display="none";
-else alert("Wrong Password 😌");
-}
+let msg=`Sorry meri jaan...
+Tum meri duniya ho.
+Tumhari ek smile mere liye sab kuch hai.
 
-let t="Tum meri duniya ho Alfisha ❤️";
+Iss tarah humara imtehan na lejiye,
+Aise khafa hone ki waja toh bata di jiye,
+Kar do maaf agar koi bhool hoi humse,
+Aise baat na kar ke humein saza na di jiye.
+
+Mana kabhi kabhi hum takraar karte hain,
+Par hum khud se ziyada aapko piyaar karte hain.
+
+Aur ha… abse nahi mangunga kabhi aapki photos wagaira.
+Aaj maine dekh liya kya sochte ho mere liye.
+Aap ek pal me anjaan bana diya apne.
+
+Thank you 😊 mujhe meri asli aukat dikhane ke liye.
+Mai ab aapki nazar me sirf zism ka bhukha hoon,
+isliye ab aapse guzarish hai apna photo mujhe na bheje.
+
+Aur ha… aapka photo tha mere phone me,
+2 photos — wo bhi delete kar diya hoon.
+Bas itna kehna tha mujhe,
+kyunki mujhe ab realise ho raha hai
+ki kuch zyada haq jama rakha tha aapke upar.
+
+Please mujhe maaf kar do Alfisha 😔
+I Love You Forever ❤️`;
+
 let i=0;
-(function type(){
-if(i<t.length){
-typing.innerHTML+=t.charAt(i++);
-setTimeout(type,80);
-}})();
+function type(){
+if(i<msg.length){
+text.innerHTML+=msg.charAt(i);
+i++;
+setTimeout(type,35);
+}
+}
+type();
 
-let s=0;
-let imgs=document.querySelectorAll("#slider img");
-setInterval(()=>{
-imgs.forEach(i=>i.style.display="none");
-imgs[s].style.display="block";
-s=(s+1)%imgs.length;
-},2000);
-
-// hearts + kisses
+/* hearts */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="❤️";
 h.style.left=Math.random()*100+"%";
 document.body.appendChild(h);
-setTimeout(()=>h.remove(),4000);
+setTimeout(()=>h.remove(),5000);
+},300);
 
-let k=document.createElement("div");
-k.className="kiss";
-k.innerHTML="💋";
-k.style.left=Math.random()*100+"%";
-document.body.appendChild(k);
-setTimeout(()=>k.remove(),4000);
-
-},500);
-
-function zoomPic(el){
-zimg.src=el.src;
-zoom.style.display="flex";
+/* fireworks */
+function boom(){
+for(let i=0;i<35;i++){
+let b=document.createElement("div");
+b.className="boom";
+b.style.left="50%";
+b.style.top="50%";
+b.style.setProperty("--x",(Math.random()*350-175)+"px");
+b.style.setProperty("--y",(Math.random()*350-175)+"px");
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),1000);
+}
 }
 
-function surprise(){
-hug.play();
-alert("I Love You Alfisha 💖");
-}
-
-function openLetter(){
-main.style.display="none";
-letter.style.display="block";
-}
-
-function proposal(){
-ring.style.display="block";
-setTimeout(()=>{
-letter.style.display="none";
-end.style.display="block";
-},2000);
+function yes(){
+setInterval(boom,600);
 }
 
 </script>
